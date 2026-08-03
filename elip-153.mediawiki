@@ -63,7 +63,7 @@ Derivation of <code>USER_XPUB</code>, <code>SERVER_XPUB</code> and <code>VIEW</c
 
 ====User Xpub====
 
-<code>USER_XPUB</code> is derived from the user master key using <code>USER_PATH</code>, a [https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki BIP44] BIP44 derivation path:
+<code>USER_XPUB</code> is derived from the user master key using <code>USER_PATH</code>, a [https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki BIP44] derivation path:
 <pre>
 USER_PATH = m/purpose'/coin_type'/account'
 </pre>
@@ -91,7 +91,7 @@ A user-specific <code>SERVER_XPUB</code> avoids reusing the same server ''public
 ====Descriptor Blinding Key====
 
 The descriptor blinding key <code>VIEW</code> is a '''view key''' as specified in [https://github.com/ElementsProject/ELIPs/blob/main/elip-0150.mediawiki ELIP-150], derived as follows:
-* Get the server xpub fingerprint, <code>server_fingerprint</code>
+* Get the fingerprint of the original AMP2 server's master xpub ('''not''' the fingerprint of <code>SERVER_XPUB</code>), <code>server_fingerprint</code>
 * Clear the most significant bit of <code>server_fingerprint</code> (mask with <code>0x7FFFFFFF</code>), and convert the result to an integer using big-endian byte order (most significant byte first), <code>server_fingerprint_masked</code>
 * Derive the user master extended key using <code>VIEW_PATH = m/purpose'/coin_type'/account'/server_fingerprint_masked'</code>, where the first 3 derivation steps are the same as those used for <code>USER_PATH</code>, and the last one is obtained at the step above
 * Get the public key from the obtained xpub, serialized in compressed form (33 bytes)

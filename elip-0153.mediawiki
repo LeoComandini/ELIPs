@@ -1,10 +1,10 @@
 <pre>
-  ELIP: XXX
+  ELIP: 153
   Layer: Wallet
   Title: AMP2 Descriptors
   Author: Leonardo Comandini <leonardo@blockstream.com>
   Comments-Summary: No comments yet.
-  Comments-URI: https://github.com/ElementsProject/elips/wiki/Comments:ELIP-0XXX
+  Comments-URI: https://github.com/ElementsProject/elips/wiki/Comments:ELIP-0153
   Status: Draft
   Type: Standards Track
   Created: 2026-07-28
@@ -32,7 +32,7 @@ Users would be unable to independently verify that their wallet was set up corre
 This ELIP defines a standard way to derive AMP2 descriptors that:
 * Combines the user's key material with the AMP2 server's key material in a well-defined script structure
 * Is derived deterministically from the user's master secret and the AMP2 server's public information
-* Enables interoperability between wallet software implementing the AMP2 protocol, including recovery from the user's master secret and the AMP2 server's master extended public key
+* Enables interoperability between wallet software implementing the AMP2 protocol, including recovery from the user's master secret and the AMP2 server's extended public key
 
 ==Design==
 
@@ -77,7 +77,7 @@ The <code>account</code> field makes it possible to derive multiple AMP2 account
 
 ====Server Xpub====
 
-<code>SERVER_XPUB</code> is derived from the AMP2 server's master extended public key via <code>SERVER_PATH</code>, a user-specific, unhardened derivation path.
+<code>SERVER_XPUB</code> is derived from the AMP2 server's extended public key via <code>SERVER_PATH</code>, a user-specific, unhardened derivation path<ref>AMP2 servers advertise their extended public key: it can be the master xpub <code>[server_fingeprint]MASTER_SERVER_XPUB</code>, or any derived xpub <code>[server_fingerprint/PATH_FROM_MASTER]DERIVED_SERVER_XPUB</code>; while <code>SERVER_PATH</code> is a deterministic unhardened path, <code>PATH_FROM_MASTER</code> can be any path, even hardened.</ref>.
 <code>SERVER_PATH</code> is derived as follows:
 * Derive <code>USER_XPUB</code> as defined in the previous section, and obtain the corresponding public key, serialized in compressed form (33 bytes)
 * Compute the SHA256 hash of the public key bytes
@@ -113,7 +113,7 @@ The following user mnemonics, account and AMP2 server xpub yield the given CT de
 ** Description: Liquid
 ** Network: Liquid
 ** User Mnemonic: <code>abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about</code>
-** AMP2 Server Xpub: <code>xpub661MyMwAqRbcGYK6ARxU2GyrYN259h9aaesSRk8TnhgHx54RCAXbcnsvqVPbTcfcR96ucYohYYsu7j3GrowCcrtQ7EjoUDPGjmj4apw3wCk</code>
+** AMP2 Server Xpub: <code>[28645006]xpub661MyMwAqRbcGYK6ARxU2GyrYN259h9aaesSRk8TnhgHx54RCAXbcnsvqVPbTcfcR96ucYohYYsu7j3GrowCcrtQ7EjoUDPGjmj4apw3wCk</code>
 ** User Account: 0
 ** CT Descriptor: <code>ct(a4c4444eae48b72232e3ce3fa8f7e4d75d9da5a4257e908a4ba5adfa7e982bfa,elwsh(multi(2,[28645006/1566545016/81752770/1667703741]xpub6CYNWCA4dpHmy8Kn41tJYysdondHULHQ4WkXj4Af7BbfxyDTV4ayx27KFaSz6o9DLpH6PjQxHCkTspjx8rSHmvmWTqDi3ieXjkd3aFYVUGD/<0;1>/*,[73c5da0a/1095585842'/1776'/0']xpub6DL1t5jE2fzoywD4o3WDjCrjyH74C6mAESxhKXh3inmpdoE2jVwxBJcNaf3v7f5XtKcu6SYiBNjSbXPLsBThvp1RA1CECP1v42qvwuJUQyX/<0;1>/*)))#nz0yy2ml</code>
 ** DWID: <code>4b2f-fca3-1d2e-0a8b-0d58-3ef5-9375-12cd</code>
@@ -122,7 +122,7 @@ The following user mnemonics, account and AMP2 server xpub yield the given CT de
 ** Description: Testnet
 ** Network: Liquid Testnet
 ** User Mnemonic: <code>abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about</code>
-** AMP2 Server Xpub: <code>tpubD6NzVbkrYhZ4YLVwccwZECKDsV7j95ee8HTjnJBc8cSBhMj8GPNgmEYm5XUNz7crD3dpE8Ka5ehwouXtFfnSWJLhAqV79k3WKjKULsSTp2C</code>
+** AMP2 Server Xpub: <code>[28645006]tpubD6NzVbkrYhZ4YLVwccwZECKDsV7j95ee8HTjnJBc8cSBhMj8GPNgmEYm5XUNz7crD3dpE8Ka5ehwouXtFfnSWJLhAqV79k3WKjKULsSTp2C</code>
 ** User Account: 0
 ** CT Descriptor: <code>ct(e3e3cc5de0e37a0f65b0cb170dcab67ed508a1e76e5b3f0e2aa143b86bc5000b,elwsh(multi(2,[28645006/2088330946/1132574986/2019598932]tpubDCPYh8t4rbkhpDXeVLUdGnjoSLXheJgxyAxj2NGokPTQ89KbKHpa3qZrE8n1i4J1eVMzY2qLqsQoXcxjHHk1qDajRpWhxiud2fbsEVSmsWQ/<0;1>/*,[73c5da0a/1095585842'/1'/0']tpubDDKAX9d8KBy2HJ5UTMg4xydwC7Jssy9qfnKrs5LTpM8PpBAiwqZ7k2GVA2P5kiWCPjnmHbDMxBng8FzDBHVqHpQkAwwc4VzXtGx1AY7zc9C/<0;1>/*)))#k7sxgkyp</code>
 ** DWID: <code>ded1-9ff5-4291-6309-3c91-a4d8-cfe5-8f74</code>
@@ -131,7 +131,7 @@ The following user mnemonics, account and AMP2 server xpub yield the given CT de
 ** Description: Regtest
 ** Network: Liquid Regtest
 ** User Mnemonic: <code>abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about</code>
-** AMP2 Server Xpub: <code>tpubD6NzVbkrYhZ4YLVwccwZECKDsV7j95ee8HTjnJBc8cSBhMj8GPNgmEYm5XUNz7crD3dpE8Ka5ehwouXtFfnSWJLhAqV79k3WKjKULsSTp2C</code>
+** AMP2 Server Xpub: <code>[28645006]tpubD6NzVbkrYhZ4YLVwccwZECKDsV7j95ee8HTjnJBc8cSBhMj8GPNgmEYm5XUNz7crD3dpE8Ka5ehwouXtFfnSWJLhAqV79k3WKjKULsSTp2C</code>
 ** User Account: 0
 ** CT Descriptor: <code>ct(e3e3cc5de0e37a0f65b0cb170dcab67ed508a1e76e5b3f0e2aa143b86bc5000b,elwsh(multi(2,[28645006/2088330946/1132574986/2019598932]tpubDCPYh8t4rbkhpDXeVLUdGnjoSLXheJgxyAxj2NGokPTQ89KbKHpa3qZrE8n1i4J1eVMzY2qLqsQoXcxjHHk1qDajRpWhxiud2fbsEVSmsWQ/<0;1>/*,[73c5da0a/1095585842'/1'/0']tpubDDKAX9d8KBy2HJ5UTMg4xydwC7Jssy9qfnKrs5LTpM8PpBAiwqZ7k2GVA2P5kiWCPjnmHbDMxBng8FzDBHVqHpQkAwwc4VzXtGx1AY7zc9C/<0;1>/*)))#k7sxgkyp</code>
 ** DWID: <code>a73a-c707-978f-cb7c-8912-5868-34c9-ee12</code>
@@ -140,7 +140,7 @@ The following user mnemonics, account and AMP2 server xpub yield the given CT de
 ** Description: Liquid, different account
 ** Network: Liquid
 ** User Mnemonic: <code>abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about</code>
-** AMP2 Server Xpub: <code>xpub661MyMwAqRbcGYK6ARxU2GyrYN259h9aaesSRk8TnhgHx54RCAXbcnsvqVPbTcfcR96ucYohYYsu7j3GrowCcrtQ7EjoUDPGjmj4apw3wCk</code>
+** AMP2 Server Xpub: <code>[28645006]xpub661MyMwAqRbcGYK6ARxU2GyrYN259h9aaesSRk8TnhgHx54RCAXbcnsvqVPbTcfcR96ucYohYYsu7j3GrowCcrtQ7EjoUDPGjmj4apw3wCk</code>
 ** User Account: 1
 ** CT Descriptor: <code>ct(bb2c64d4f5d6d0f467848ea5679d7a06645214c2787440fd45312dbbdd0025c6,elwsh(multi(2,[28645006/613433853/1622795276/321357256]xpub6D7HYys28KEsfohLCGoJT7zpEW4adABiuacczzyDdtoQR95rtc2RXBoH4sgCaxkkzTB69eDhEBiLoev5VYx77jdaZjJueZ1xrm9NSbhspaR/<0;1>/*,[73c5da0a/1095585842'/1776'/1']xpub6DL1t5jE2fzozbCH1A1VxeexbVzYwMARaLDhq8FREmLkDWyu5HnpDrTzVzYBLBnso4G4chhTYZZyGnGrLcR2wg7qPVTdLns5nZ9KgwbQ9iT/<0;1>/*)))#5s600znn</code>
 ** DWID: <code>5c5b-05fd-0fe1-58ef-b6a5-c54f-3e56-e478</code>
@@ -149,7 +149,7 @@ The following user mnemonics, account and AMP2 server xpub yield the given CT de
 ** Description: Liquid, different user
 ** Network: Liquid
 ** User Mnemonic: <code>legal winner thank year wave sausage worth useful legal winner thank yellow</code>
-** AMP2 Server Xpub: <code>xpub661MyMwAqRbcGYK6ARxU2GyrYN259h9aaesSRk8TnhgHx54RCAXbcnsvqVPbTcfcR96ucYohYYsu7j3GrowCcrtQ7EjoUDPGjmj4apw3wCk</code>
+** AMP2 Server Xpub: <code>[28645006]xpub661MyMwAqRbcGYK6ARxU2GyrYN259h9aaesSRk8TnhgHx54RCAXbcnsvqVPbTcfcR96ucYohYYsu7j3GrowCcrtQ7EjoUDPGjmj4apw3wCk</code>
 ** User Account: 0
 ** CT Descriptor: <code>ct(4178602d5bd9ad236431aaeea92086c33e326496676b5ef458a5628a40afccf3,elwsh(multi(2,[28645006/1075424887/1038076759/2134735410]xpub6Bu9CyVCvQNHYChzDLGa2QrH3XAYg7xvRYhReTX7b5NvkKyu3MHxnKmBExMyd9TtP3aqtg5t1aCVv17znqaeRjhL1HGK34zYAYf1GJvRTkK/<0;1>/*,[b8688df1/1095585842'/1776'/0']xpub6CGoCXyd13GGVqRamaWQcW6GtCKezevWscBZbuaWvHjXXRjGhzDpcsBPVs19cpz6tiEsdadMgHH8m9CUPQr4unwtPyLeC9S545Dt6eN2pwd/<0;1>/*)))#j6yfhcnk</code>
 ** DWID: <code>0328-ea41-7816-2f18-e86d-f110-bec4-f4eb</code>
@@ -158,10 +158,19 @@ The following user mnemonics, account and AMP2 server xpub yield the given CT de
 ** Description: Liquid, different server
 ** Network: Liquid
 ** User Mnemonic: <code>abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about</code>
-** AMP2 Server Xpub: <code>xpub661MyMwAqRbcEsjq2muW5PYkDikFgHuWJGzu1WrZiQgHUsgEeKMtGducsZe1iRsGAGNGDzmWYDM69ya24LMyR7mDhtzqQsc286XEQfM2kkV</code>
+** AMP2 Server Xpub: <code>[3f635a63]xpub661MyMwAqRbcEsjq2muW5PYkDikFgHuWJGzu1WrZiQgHUsgEeKMtGducsZe1iRsGAGNGDzmWYDM69ya24LMyR7mDhtzqQsc286XEQfM2kkV</code>
 ** User Account: 0
 ** CT Descriptor: <code>ct(72e022e013e18c7eacc659d591b73df99ec749f9ebcf0b7690153d0538f4f5e0,elwsh(multi(2,[3f635a63/1566545016/81752770/1667703741]xpub6DTwkNfd3EDJmyidC6zGYdAGHoMyh13qNRQJKSDzNVPF4LMf7kcULKQ8DuTD6SRovsSJSFcgB3zHFeE1mbe4a548VK8VbabiYZGssURqwx7/<0;1>/*,[73c5da0a/1095585842'/1776'/0']xpub6DL1t5jE2fzoywD4o3WDjCrjyH74C6mAESxhKXh3inmpdoE2jVwxBJcNaf3v7f5XtKcu6SYiBNjSbXPLsBThvp1RA1CECP1v42qvwuJUQyX/<0;1>/*)))#p57xtc0q</code>
 ** DWID: <code>7e5d-8182-ec4f-cf90-7be8-20f5-b3d8-8694</code>
+
+* Test Vector 7
+** Description: Liquid, non-master server xpub
+** Network: Liquid
+** User Mnemonic: <code>abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about</code>
+** AMP2 Server Xpub: <code>[28645006/1']xpub68BiZSLmmvzsNBNKP5zaFPFJ4jfnxuyJsfqBFDhnf697oKZM39QkdNgAv7gT1roaPtdfX7ftCLs9Heh7cug7QCfvPMizuXdvxwr8xLC5Esi</code>
+** User Account: 0
+** CT Descriptor: <code>ct(d7b3cf5e00e1f31e5aabb81cd3d9220165751f85ed7ce4bdc886ec42b69b89b5,elwsh(multi(2,[28645006/1'/1566545016/81752770/1667703741]xpub6F9BPbaTxbrBy5E8NPcU33YCzF89yoZr2GKka1hsJWqpdmz9W9vBygEUmHYMaWDRitL7XnPVsip4zgGQwBvCNKybyisuGyaAtSPjLZ8BqmD/<0;1>/*,[73c5da0a/1095585842'/1776'/0']xpub6DL1t5jE2fzoywD4o3WDjCrjyH74C6mAESxhKXh3inmpdoE2jVwxBJcNaf3v7f5XtKcu6SYiBNjSbXPLsBThvp1RA1CECP1v42qvwuJUQyX/<0;1>/*)))#pcdj5lpj</code>
+** DWID: <code>2d62-9c31-7d9a-1ba3-73ff-3c08-8803-aa1d</code>
 
 ==Reference Implementation==
 

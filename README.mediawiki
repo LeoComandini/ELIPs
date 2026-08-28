@@ -77,7 +77,7 @@ Having an ELIP here does not make it a formally accepted standard until its stat
 |- style="background-color: #ffcfcf"
 | [[elip-0153.mediawiki|153]]
 | Wallet
-  AMP2 Descriptors
+| AMP2 Descriptors
 | Leonardo Comandini
 | Standards Track
 | Draft

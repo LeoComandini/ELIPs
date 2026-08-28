@@ -77,7 +77,7 @@ The <code>account</code> field makes it possible to derive multiple AMP2 account
 
 ====Server Xpub====
 
-<code>SERVER_XPUB</code> is derived from the AMP2 server's extended public key via <code>SERVER_PATH</code>, a user-specific, unhardened derivation path<ref>AMP2 servers advertise their extended public key: it can be the master xpub <code>[server_fingeprint]MASTER_SERVER_XPUB</code>, or any derived xpub <code>[server_fingerprint/PATH_FROM_MASTER]DERIVED_SERVER_XPUB</code>; while <code>SERVER_PATH</code> is a deterministic unhardened path, <code>PATH_FROM_MASTER</code> can be any path, even hardened.</ref>.
+<code>SERVER_XPUB</code> is derived from the AMP2 server's extended public key via <code>SERVER_PATH</code>, a user-specific, unhardened derivation path<ref>AMP2 servers advertise their extended public key: it can be the master xpub <code>[server_fingerprint]MASTER_SERVER_XPUB</code>, or any derived xpub <code>[server_fingerprint/PATH_FROM_MASTER]DERIVED_SERVER_XPUB</code>; while <code>SERVER_PATH</code> is a deterministic unhardened path, <code>PATH_FROM_MASTER</code> can be any path, even hardened.</ref>.
 <code>SERVER_PATH</code> is derived as follows:
 * Derive <code>USER_XPUB</code> as defined in the previous section, and obtain the corresponding public key, serialized in compressed form (33 bytes)
 * Compute the SHA256 hash of the public key bytes
